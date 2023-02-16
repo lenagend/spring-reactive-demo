@@ -1,6 +1,5 @@
 package com.greglturnquist.hackingspringboot.reactive;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -15,7 +14,7 @@ import static org.springframework.http.MediaType.TEXT_HTML;
  * @author Greg Turnquist
  */
 // tag::code[]
-@Disabled("pom.xml에서 blockhound-junit-platform 의존 관계를 제거한 후에 실행해야 성공한다.")
+//@Disabled("pom.xml에서 blockhound-junit-platform 의존 관계를 제거한 후에 실행해야 성공한다.")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT) //<1>
 @AutoConfigureWebTestClient // <2>
 public class LoadingWebSiteIntegrationTest {
@@ -29,7 +28,7 @@ public class LoadingWebSiteIntegrationTest {
                 .expectHeader().contentType(TEXT_HTML) //
                 .expectBody(String.class) //
                 .consumeWith(exchangeResult -> {
-                    assertThat(exchangeResult.getResponseBody()).contains("<a href=\"/add");
+                    assertThat(exchangeResult.getResponseBody()).contains("<h2>Inventory Management</h2>");
                 });
     }
 }
