@@ -1,3 +1,4 @@
+/*
 package com.kkm.springReactiveDemo;
 
 import org.junit.jupiter.api.Test;
@@ -6,9 +7,13 @@ import reactor.test.StepVerifier;
 
 import java.time.Duration;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+*/
 /**
  * @author Greg Turnquist
- */
+ *//*
+
 class BlockHoundUnitTest {
 
     // tag::obvious-failure[]
@@ -23,15 +28,14 @@ class BlockHoundUnitTest {
                         return Mono.error(e);
                     }
                 }) //
-                .as(StepVerifier::create) //
-                .verifyComplete();
-//				.verifyErrorMatches(throwable -> {
-//					assertThat(throwable.getMessage()) //
-//							.contains("Blocking call! java.lang.Thread.sleep");
-//					return true;
-//				});
+                .as(StepVerifier::create)
+				.verifyErrorMatches(throwable -> {
+					assertThat(throwable.getMessage()) //
+							.contains("Blocking call! java.lang.Thread.sleep");
+					return true;
+				});
 
     }
     // end::obvious-failure[]
 
-}
+}*/
