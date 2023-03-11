@@ -2,6 +2,7 @@ package com.kkm.springReactiveDemo;
 
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
+import reactor.test.StepVerifier;
 
 public class ReactivePractive1 {
     @Test
@@ -14,6 +15,18 @@ public class ReactivePractive1 {
         fruitFlux.subscribe(
                 f-> System.out.println("here's some fruits:" + f)
         );
+
+        //이처럼 Flux나 Mono의 항목들을 콘솔로 출력하면 리액티브 타입이 실제 작동하는 것을 파악하는 데 좋다
+        //그러나 리액터의 StepVerifier를 사용하는 것이 Flux나 Mono를 테스트하는 더 좋은 방법이다
+        //Flux나 Mono가 지정되면 StepVerifier는 해당 리액티브 타입을 구독한 다음에 스트림을 통해 전달되는 데이터에 대해 assertion을 제공한다
+
+        StepVerifier.create(fruitFlux)
+                .expectNext("apple")
+                .expectNext("banana")
+                .expectNext("grape")
+                .expectNext("strawberry")
+                .expectNext("oragne")
+                .verifyComplete();
     }
 
 
