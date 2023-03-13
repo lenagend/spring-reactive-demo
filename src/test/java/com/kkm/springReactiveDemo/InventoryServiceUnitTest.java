@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -40,6 +41,31 @@ public class InventoryServiceUnitTest {
         when(cartRepository.findById(anyString())).thenReturn(Mono.empty());
         when(itemRepository.findById(anyString())).thenReturn(Mono.just(sampleItem));
         when(cartRepository.save(any(Cart.class))).thenReturn(Mono.just(sampleCart));
+        when(itemRepository.findAll()).thenReturn(Flux.just(
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99),
+                new Item("TV tray", "Alf TV tray", 19.99)
+        ));
 
         inventoryService = new InventoryService(itemRepository, cartRepository); // <4>
     }
@@ -58,6 +84,15 @@ public class InventoryServiceUnitTest {
 
                     return true;
                 })
+                .verifyComplete();
+    }
+
+    @Test
+    void findAllTakeSomethinggPractice(){
+        itemRepository.findAll()
+                .take(10)
+                .as(StepVerifier::create)
+                .expectNextCount(10)
                 .verifyComplete();
     }
 
