@@ -38,4 +38,16 @@ public class ApiItemController {
                         .body(savedItem));
 
     }
+
+    @PutMapping("/api/items/{id}") //http PUT은 교체를 의미하며 교체 대상이 존재하지 않으면 새로 생성한다다
+   public Mono<ResponseEntity<?>> updateItem(
+            @RequestBody Mono<Item> item,
+            @PathVariable String id
+    ){
+        return item
+                .map(content-> new Item(id, content.getName(), content.getDescription(),
+                        content.getPrice()))
+                .flatMap(this.repository::save)
+                .map(ResponseEntity::ok);
+    }
 }
