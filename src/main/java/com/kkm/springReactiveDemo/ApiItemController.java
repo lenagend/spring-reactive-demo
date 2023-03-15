@@ -16,7 +16,7 @@ public class ApiItemController {
         this.repository = repository;
     }
 
-    @GetMapping("/api/itmes")
+    @GetMapping("/api/items")
     Flux<Item> findAll(){
         return this.repository.findAll();
     }
